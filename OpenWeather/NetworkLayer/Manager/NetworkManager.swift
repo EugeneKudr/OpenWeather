@@ -37,8 +37,8 @@ struct NetworkManager {
         }
     }
     
-    func getCurrentWeather(completion: @escaping (_ temp: CurrentLocalWeather?,_ error: String?)->()) {
-        router.request(.currentWeather) { data, response, error in
+    func getCurrentWeather(_ city: String, completion: @escaping (_ temp: CurrentLocalWeather?,_ error: String?)->()) {
+        router.request(.currentWeather(city: city)) { data, response, error in
             
             if error != nil {
                 completion(nil, "Please check your network connection.")
@@ -67,9 +67,9 @@ struct NetworkManager {
         
     }
     
-    func getForecast(completion: @escaping (_ temp: WeatherForecast?,_ error: String?)->()) {
-        router.request(.forecast) { data, response, error in
-            
+    func getForecast(_ city: String, completion: @escaping (_ temp: WeatherForecast?,_ error: String?)->()) {
+        router.request(.forecast(city: city)) { data, response, error in
+                        
             if error != nil {
                 completion(nil, "Please check your network connection.")
             }

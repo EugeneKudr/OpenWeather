@@ -9,8 +9,8 @@
 import Foundation
 
 public enum WeatherApi {
-    case currentWeather
-    case forecast
+    case currentWeather(city: String)
+    case forecast(city: String)
 }
 
 extension WeatherApi: EndPointType {
@@ -39,10 +39,10 @@ extension WeatherApi: EndPointType {
     
     var task: HTTPTask {
         switch self {
-        case .currentWeather:
-            return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: ["q":"penza", "appid":NetworkManager.MovieAPIKey, "units":"metric", "lang":"ru"])
-        case .forecast:
-            return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: ["q":"penza", "appid":NetworkManager.MovieAPIKey, "units":"metric", "lang":"ru"])
+        case .currentWeather(let city):
+            return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: ["q":city, "appid":NetworkManager.MovieAPIKey, "units":"metric", "lang":"ru"])
+        case .forecast(let city):
+            return .requestParameters(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: ["q":city, "appid":NetworkManager.MovieAPIKey, "units":"metric", "lang":"ru"])
         }
     }
     
