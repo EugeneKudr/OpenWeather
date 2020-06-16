@@ -17,6 +17,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.register(UINib(nibName: "WeatherCell", bundle: nil), forCellReuseIdentifier: "WeatherCell")
+        tableView.register(UINib(nibName: "WeatherTodayCell", bundle: nil), forCellReuseIdentifier: "WeatherTodayCell")
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 120
+        
         searchBar.text = "Введите город"
 
         networkManager = NetworkManager()
@@ -61,14 +68,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.setData(data: tableViewData[indexPath.row + 1])
             return cell
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return tableViewData[0].isExpended ? 300 : 120
-        } else {
-            return tableViewData[indexPath.row + 1].isExpended ? 330 : 120
         }
     }
     
